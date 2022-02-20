@@ -1,0 +1,7 @@
+ [
+   {
+      "version": "1.0",
+      "sqlfile": "errormsg.sql",
+      "desc": "错误提示数据"
+   }
+ ]
