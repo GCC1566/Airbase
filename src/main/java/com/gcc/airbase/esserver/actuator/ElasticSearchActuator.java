@@ -1,7 +1,8 @@
 package com.gcc.airbase.esserver.actuator;
 
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.gcc.airbase.esserver.dto.ESearchParamDto;
 import com.gcc.airbase.esserver.dto.SearchRetDto;
 import org.elasticsearch.search.builder.SearchSourceBuilder;

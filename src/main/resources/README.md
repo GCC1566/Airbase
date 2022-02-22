@@ -37,7 +37,7 @@
 
 ### 3.1 功能选择
 
-> Airbase 内置功能包括 “初始化数据库”、“自带ORM框架”、“Es执行器组件”功能，使用时可根据需要，启用相关功能，操作方式仅为配置yml文件
+> Airbase 内置功能包括 “初始化数据库”、“自带ORM框架”、“接口请求记录器”、“Es执行器组件”功能，使用时可根据需要，启用相关功能，操作方式仅为配置yml文件
 
 若想使用Airbase，需要在yml文件中追加 airbase的以下配置项：
 
@@ -45,6 +45,7 @@
 airbase:
   initdatabase-enable: true #是否启用数据库初始化功能
   recorddborm-enable: true #是否启用record Db组件（ORM）
+  apilog-enable: true     #是否启用接口请求记录器
   esserver-enable: false #es执行器组件，启用状态默认是true
 ```
 
@@ -149,7 +150,41 @@ public void testFrom(){
 
 Db内置了完整的CRUD方法、分页方法等常规数据库操作，可满足常规的数据库操作ORM需求。
 
-### 3.4  自带Es执行器组件
+### 3.4  接口请求记录器功能
+
+在yml配置文件中将配置打开后，web项目可自行记录每条接口的请求情况，并在日志、控制台输出；
+
+输出日志样例：
+
+```shell
+EagleEye-Listener : =======================【Request Start】=======================
+EagleEye-Listener : request-method :POST
+EagleEye-Listener : request-host   :127.0.0.1
+EagleEye-Listener : request-uri    :/Emulator/utils/timeutil/stamptodatestr
+EagleEye-Listener : request-param  :{  "formatStr": "yyyy-MM-dd",  "stamp": }
+EagleEye-Listener : =======================【Request   End】=======================
+```
+
+内置RequestRecord注解，可注解于Controller层的方法中，每次请求该接口，日志将记录其中内容
+
+| 属性     | 数据类型 | 作用                     |
+| -------- | -------- | ------------------------ |
+| item     | String   | 打印日志的起始区分符     |
+| timeSpan | Boolean  | 是否开启接口相应时间计算 |
+
+
+
+```java
+    @GetMapping("/savexxxxx")
+    @RequestRecord(item = "*",timespan =false)
+    public ResponseData savePage(String name){
+        …………
+    }
+```
+
+
+
+### 3.5  自带Es执行器组件
 
 > Airbase里自带了es的执行器，可直接执行es的查询dsl，同时，该版本es执行器增加了sql转换dsl的功能
 
@@ -196,7 +231,7 @@ public class ElasticServerCompent {
 }
 ```
 
-### 3.5 完整yml模板
+### 3.6 完整yml模板
 
 ```yml
 airbase:
@@ -204,6 +239,7 @@ airbase:
   version: v1.0
   initdatabase-enable: true #数据库初始化功能
   recorddborm-enable: true  #自带ORM组件
+  apilog-enable: true     #是否启用接口请求记录器
   esserver-enable: false    #es执行器组件
 spring:
   datasource:

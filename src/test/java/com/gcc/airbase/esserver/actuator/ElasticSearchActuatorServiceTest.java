@@ -1,8 +1,7 @@
 package com.gcc.airbase.esserver.actuator;
 
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.gcc.airbase.StartApplicationTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -50,14 +49,14 @@ class ElasticSearchActuatorServiceTest extends StartApplicationTest {
                 "    }\n" +
                 "}\n";
         log.info("mapping:\n{}",mapping);
-        elasticSearchActuator.createIndex(index, JSONUtil.parseObj(mapping));
+        elasticSearchActuator.createIndex(index, JSONObject.parseObject(mapping));
 
     }
 
     @Test
     void addData(){
 
-        JSONObject data = JSONUtil.parseObj("{\n" +
+        JSONObject data = JSONObject.parseObject("{\n" +
                 "    \"id\":1,\n" +
                 "    \"title\":\"第一篇测试文章\",\n" +
                 "    \"content\":\"我是你爸爸，嘿嘿\"\n" +
@@ -66,7 +65,7 @@ class ElasticSearchActuatorServiceTest extends StartApplicationTest {
         elasticSearchActuator.addIndexData("test",data);
         log.info("成功插入一条数据：我是你爸爸");
 
-        JSONArray jsonArray = JSONUtil.parseArray("[\n" +
+        JSONArray jsonArray = JSONArray.parseArray("[\n" +
                 "{\n" +
                 "    \"id\":2,\n" +
                 "    \"title\":\"第2篇测试文章\",\n" +

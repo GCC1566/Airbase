@@ -3,6 +3,7 @@ airbase:
   version: v1.0
   initdatabase-enable: false
   recorddborm-enable: true
+  apilog-enable: true
   esserver-enable: false
 spring:
   datasource:

@@ -2,9 +2,9 @@ package com.gcc.airbase.esserver.actuator;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.gcc.airbase.esserver.dto.ESearchParamDto;
 import com.gcc.airbase.esserver.dto.SearchRetDto;
 import lombok.extern.slf4j.Slf4j;
@@ -215,7 +215,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
         searchRequest.source(searchSourceBuilder);
         try {
             SearchResponse searchResp = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-            return JSONUtil.parseObj(searchResp);
+            return JSONObject.parseObject(searchResp.toString());
         } catch (Exception e) {
             log.error("es查询错误，"+e+"\n dslStr:{}",searchSourceBuilder);
         }
@@ -243,7 +243,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
         try {
             SearchResponse searchResp = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
             if (null != searchResp.getAggregations()) {
-                result = JSONUtil.parseObj(JSONUtil.parse(searchResp.getAggregations().asMap()).toJSONString(0));
+                result = JSONObject.parseObject(JSONUtil.parse(searchResp.getAggregations().asMap()).toJSONString(0));
             }
         } catch (Exception e) {
             log.error("es查询错误，"+e+"\n dslStr:{}",searchSourceBuilder);
@@ -322,7 +322,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
         JSONObject retJson = null;
         Response resp = restClient.performRequest(request);
         if (resp.getStatusLine().getStatusCode() == 200) {
-            retJson = JSONUtil.parseObj(EntityUtils.toString(resp.getEntity()),false,true);
+            retJson = JSONObject.parseObject(EntityUtils.toString(resp.getEntity()));
         }
         return retJson;
     }

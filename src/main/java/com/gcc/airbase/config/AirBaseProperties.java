@@ -17,6 +17,8 @@ public class AirBaseProperties {
 
     private String recordDbOrmEnable;
 
+    private String apiLogEnable;
+
     private String esServerEnable;
 
     public Boolean getInitDataBaseEnable() {
@@ -29,5 +31,9 @@ public class AirBaseProperties {
 
     public Boolean getRecordDbOrmEnable() {
         return Boolean.valueOf(recordDbOrmEnable);
+    }
+
+    public Boolean getApiLogEnable() {
+        return Boolean.valueOf(apiLogEnable);
     }
 }
