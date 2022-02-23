@@ -235,8 +235,6 @@ public class ElasticServerCompent {
 
 ```yml
 airbase:
-  description: WebProjectBasic Space Station
-  version: v1.0
   initdatabase-enable: true #数据库初始化功能
   recorddborm-enable: true  #自带ORM组件
   apilog-enable: true     #是否启用接口请求记录器

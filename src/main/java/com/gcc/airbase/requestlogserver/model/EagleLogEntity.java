@@ -1,6 +1,7 @@
 package com.gcc.airbase.requestlogserver.model;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.math.MathUtil;
 import com.gcc.airbase.requestlogserver.enums.ItemType;
 import lombok.Data;
 import org.springframework.util.StreamUtils;
@@ -59,15 +60,15 @@ public class EagleLogEntity implements Serializable {
         StringBuilder infoStr = new StringBuilder(FORMAR_STR);
         infoStr.append(item+START_STR+item)
                 .append(FORMAR_STR)
-                .append("request-host   :"+this.host)
+                .append(" request-host   : "+this.host)
                 .append(FORMAR_STR)
-                .append("request-method :"+this.method)
+                .append(" request-method : "+this.method)
                 .append(FORMAR_STR)
-                .append("request-uri    :"+this.uri)
+                .append(" request-uri    : "+this.uri)
                 .append(FORMAR_STR)
-                .append("request-param  :"+this.param);
+                .append(" request-param  : "+this.param);
         if(spanflag){
-                infoStr.append(FORMAR_STR).append("request-span   :"+this.spanStr);
+                infoStr.append(FORMAR_STR).append(" request-span   : "+this.spanStr);
         }
         infoStr.append(FORMAR_STR).append(item+END_STR+item);
         return infoStr.toString();
@@ -121,7 +122,7 @@ public class EagleLogEntity implements Serializable {
             long a = endTime -startTime;
             Double b = Double.parseDouble(""+a);
             Double span = b/1000;//DateUtil.between(DateUtil.date(startTime),DateUtil.date(endTime), DateUnit.SECOND);
-            this.spanStr = new DecimalFormat("#.000").format(span) +"s";
+            this.spanStr = "0"+new DecimalFormat("#,##0.000").format(span) +"s";
         }
     }
 
