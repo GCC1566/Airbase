@@ -1,39 +1,82 @@
 package com.gcc.airbase.config;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@Component
+
 @ConfigurationProperties(prefix = "airbase")
-@Data
+@Component
 public class AirBaseProperties {
 
     private String description;
 
     private String version = "v1.0";
 
-    private String initDataBaseEnable = "false";
+    private String initDataBaseEnable;
 
-    private String recordDbOrmEnable = "false";
+    private String recordDbOrmEnable;
 
-    private String apiLogEnable = "true";
+    private String apiLogEnable;
 
-    private String esServerEnable = "false";
+    private String esServerEnable;
 
     public Boolean getInitDataBaseEnable() {
+        if(null == initDataBaseEnable){
+            return false;
+        }
         return Boolean.valueOf(initDataBaseEnable);
     }
 
     public Boolean getEsServerEnable() {
+        if(null == esServerEnable){
+            return false;
+        }
         return Boolean.valueOf(esServerEnable);
     }
 
     public Boolean getRecordDbOrmEnable() {
+        if(null == recordDbOrmEnable){
+            return false;
+        }
         return Boolean.valueOf(recordDbOrmEnable);
     }
 
     public Boolean getApiLogEnable() {
+        if(null == apiLogEnable){
+            return true;
+        }
         return Boolean.valueOf(apiLogEnable);
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public void setInitDataBaseEnable(String initDataBaseEnable) {
+        this.initDataBaseEnable = initDataBaseEnable;
+    }
+
+    public void setRecordDbOrmEnable(String recordDbOrmEnable) {
+        this.recordDbOrmEnable = recordDbOrmEnable;
+    }
+
+    public void setApiLogEnable(String apiLogEnable) {
+        this.apiLogEnable = apiLogEnable;
+    }
+
+    public void setEsServerEnable(String esServerEnable) {
+        this.esServerEnable = esServerEnable;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getVersion() {
+        return version;
     }
 }

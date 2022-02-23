@@ -2,6 +2,7 @@ package com.gcc.airbase.esserver;
 
 
 import com.gcc.airbase.config.ElasticSearchProperties;
+import com.gcc.airbase.config.model.EsCondition;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -21,6 +22,7 @@ import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -34,7 +36,7 @@ public class LoadEsClient {
     @Autowired
     ElasticSearchProperties properties;
 
-    @ConditionalOnProperty(name="airbase.esserver-enable", havingValue="true")
+    @Conditional(EsCondition.class)
     @Bean
     public RestHighLevelClient getClient() {
         RestHighLevelClient highLevelClient = null ;

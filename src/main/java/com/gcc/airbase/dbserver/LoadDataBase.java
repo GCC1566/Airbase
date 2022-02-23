@@ -2,13 +2,14 @@ package com.gcc.airbase.dbserver;
 
 import com.gcc.airbase.config.AirBaseProperties;
 import com.gcc.airbase.config.DataBaseProperties;
+import com.gcc.airbase.config.model.InitDbCondition;
 import com.gcc.conscript.DataBaseInitorFactory;
 import com.gcc.conscript.InitDataBase;
 import com.gcc.conscript.entity.DbConConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -25,7 +26,7 @@ public class LoadDataBase {
     @Autowired
     private DataBaseProperties dbInfo;
 
-    @ConditionalOnProperty(name="airbase.initdatabase-enable", havingValue="true")
+    @Conditional(InitDbCondition.class)
     @Bean("isInitEd")
     public Boolean initDataBase(){
         DbConConfiguration dbconfig = new DbConConfiguration.Builder()

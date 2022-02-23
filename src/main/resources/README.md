@@ -39,17 +39,17 @@
 
 > Airbase 内置功能包括 “初始化数据库”、“自带ORM框架”、“接口请求记录器”、“Es执行器组件”功能，使用时可根据需要，启用相关功能，操作方式仅为配置yml文件
 
-若想使用Airbase，需要在yml文件中追加 airbase的以下配置项：
+若想选用Airbase中的部分功能，可在yml文件中追加 airbase的以下配置项：
 
 ```yml
 airbase:
-  initdatabase-enable: true #是否启用数据库初始化功能
-  recorddborm-enable: true #是否启用record Db组件（ORM）
-  apilog-enable: true     #是否启用接口请求记录器
-  esserver-enable: false #es执行器组件，启用状态默认是true
+  initdatabase-enable: true #是否启用数据库初始化功能，默认状态为禁用
+  recorddborm-enable: true #是否启用record Db组件（ORM），默认状态为禁用
+  apilog-enable: true     #是否启用接口请求记录器，默认状态为启用 
+  esserver-enable: false #es执行器组件，启用状态默认是禁用
 ```
 
-注：**若不进行此配置，则Airbase功能无效**
+注：**若不进行此配置，则Airbase仅 接口请求记录器功能 可用**
 
 ### 3.2  初始化数据库
 
