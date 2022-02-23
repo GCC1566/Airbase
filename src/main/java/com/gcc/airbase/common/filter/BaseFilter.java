@@ -1,12 +1,13 @@
 package com.gcc.airbase.common.filter;
 
 import com.gcc.airbase.common.filter.wrapper.RequestWrapper;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebFault;
 import java.io.IOException;
-
+@ConditionalOnWebApplication
 @Component
 @WebFault
 public class BaseFilter implements Filter {

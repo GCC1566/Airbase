@@ -1,4 +1,4 @@
-package com.gcc.airbase.common.annotation;
+package com.gcc.airbase.requestlogserver.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,7 +11,7 @@ public @interface RequestRecord {
 
     String item() default "=";
 
-    boolean timeSpan() default false;
+    boolean timeSpan() default true;
 
 
 }

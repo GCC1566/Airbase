@@ -1,7 +1,7 @@
 package com.gcc.airbase.common.filter.interceptor;
 
 
-import com.gcc.airbase.common.annotation.RequestRecord;
+import com.gcc.airbase.requestlogserver.annotation.RequestRecord;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;

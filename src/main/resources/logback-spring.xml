@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!--官方配置 start-->
+
+    <!--保留官方配置，方便使用官方配置的特性,参考:spring-boot-2.1.0.RELEASE.jar!\org\springframework\boot\logging\logback\base.xml-->
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+    <!--官方配置 end-->
+
+
+    <!--######自定义配置  start########-->
+
+    <!-- 自定义配置 -->
+    <appender name="LISTENER" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%m%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <logger name="EagleEye-Listener" additivity="false" level="info">
+        <appender-ref ref="LISTENER"/>
+    </logger>
+
+</configuration>

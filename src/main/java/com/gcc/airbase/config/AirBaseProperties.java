@@ -11,15 +11,15 @@ public class AirBaseProperties {
 
     private String description;
 
-    private String version;
+    private String version = "v1.0";
 
-    private String initDataBaseEnable;
+    private String initDataBaseEnable = "false";
 
-    private String recordDbOrmEnable;
+    private String recordDbOrmEnable = "false";
 
-    private String apiLogEnable;
+    private String apiLogEnable = "true";
 
-    private String esServerEnable;
+    private String esServerEnable = "false";
 
     public Boolean getInitDataBaseEnable() {
         return Boolean.valueOf(initDataBaseEnable);

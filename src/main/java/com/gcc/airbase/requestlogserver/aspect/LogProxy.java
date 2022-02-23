@@ -1,4 +1,4 @@
-package com.gcc.airbase.common.aspect;
+package com.gcc.airbase.requestlogserver.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 @Slf4j(topic = "EagleEye-Listener")
 public class LogProxy {
 
+
     public LogProxy(){}
+
 
     @Async
     public void synclog(String s,Object ...obj){

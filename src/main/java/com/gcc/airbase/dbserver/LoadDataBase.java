@@ -1,5 +1,6 @@
 package com.gcc.airbase.dbserver;
 
+import com.gcc.airbase.config.AirBaseProperties;
 import com.gcc.airbase.config.DataBaseProperties;
 import com.gcc.conscript.DataBaseInitorFactory;
 import com.gcc.conscript.InitDataBase;
@@ -17,6 +18,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Slf4j
 public class LoadDataBase {
+
+    @Autowired
+    AirBaseProperties properties;
 
     @Autowired
     private DataBaseProperties dbInfo;
