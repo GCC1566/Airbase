@@ -27,4 +27,10 @@ public class DataBaseProperties {
 
     private String dbConfigFile;
 
+    public String getUrl(){
+        if(url == null || "".equals(url)){
+            return "jdbc:mysql://"+this.host+":"+this.dbPort+"/"+this.dbName+"?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8";
+        }
+        return url;
+    }
 }

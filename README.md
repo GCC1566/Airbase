@@ -47,6 +47,7 @@ airbase:
   recorddborm-enable: true #是否启用record Db组件（ORM），默认状态为禁用
   apilog-enable: true     #是否启用接口请求记录器，默认状态为启用 
   esserver-enable: false #es执行器组件，启用状态默认是禁用
+  esserver-lognotes: true #es执行日志（选用）
 ```
 
 注：**若不进行此配置，则Airbase仅 接口请求记录器功能 可用**
@@ -60,13 +61,11 @@ airbase:
 ```yml
 spring:
   datasource:
-    url: #数据库连接url eg: jdbc:mysql://X.X.X:MMMM/数据库名……
+    host: #数据库服务地址 eg:127.0.0.1
+    dbport: #数据库服务端口
+    dbname: #数据库名称
     user: #数据库用户名
     password: #数据库密码
-    dbtype: #数据库类型 eg:mysql
-    dbname: #数据库名称
-    dbport: #数据库服务端口
-    host: #数据库服务地址 eg:127.0.0.1
     dbconfigfile: #版本控制文件，建议使用 mysql-dbconfig.json
 ```
 
@@ -123,13 +122,11 @@ public class AfterStartProcess implements ApplicationRunner {
 ```yml
 spring:
   datasource:
-    url: #数据库连接url eg: jdbc:mysql://.X.X:MMMM/数据库名称……
+    host: #数据库服务地址 eg:127.0.0.1
+    dbport: #数据库服务端口
+    dbname: #数据库名称
     user: #数据库用户名
     password: #数据库密码
-    dbtype: #数据库类型 eg:mysql
-    dbname: #数据库名称
-    dbport: #数据库服务端口
-    host: #数据库服务地址 eg:127.0.0.1
 ```
 
 使用ORM组件Demo：
@@ -239,17 +236,16 @@ airbase:
   recorddborm-enable: true  #自带ORM组件
   apilog-enable: true     #是否启用接口请求记录器
   esserver-enable: false    #es执行器组件
+  esserver-lognotes: true   #es的执行日志（选用）
 spring:
   datasource:
-    url: #数据库连接url eg: jdbc:mysql://X.X.X:MMMM/数据库名……
+    host: #数据库服务地址 eg:127.0.0.1
+    dbport: #数据库服务端口
+    dbname: #数据库名称
     user: #数据库用户名
     password: #数据库密码
-    dbtype: #数据库类型 eg:mysql
-    dbname: #数据库名称
-    dbport: #数据库服务端口
-    host: #数据库服务地址 eg:127.0.0.1
     dbconfigfile: #版本控制文件，建议使用 mysql-dbconfig.json
-elasticsearch: #(若airbase.esserver-enable=false，可忽略此配置)
+  elasticsearch: #(若airbase.esserver-enable=false，可忽略此配置)
     host: 127.0.0.1   #es服务地址（必填）
     port: 9500        #es http服务端口（必填）
     tcpport: 9300     #es集群的通信端口（非必填，考虑性能建议添加）

@@ -1,11 +1,10 @@
 package com.gcc.airbase.esserver.dto;
 
-import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
-
 import java.io.Serializable;
 @Data
 public class SearchRetDto implements Serializable {
@@ -18,7 +17,7 @@ public class SearchRetDto implements Serializable {
     }
 
     public SearchRetDto(Object obj){
-        aggregations = JSONUtil.parseObj(obj);
+        aggregations = JSONObject.parseObject(JSONUtil.parseObj(obj).toJSONString(0));
     }
 
     public SearchRetDto(SearchResponse searchResponse){

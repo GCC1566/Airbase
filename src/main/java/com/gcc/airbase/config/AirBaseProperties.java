@@ -20,6 +20,8 @@ public class AirBaseProperties {
 
     private String esServerEnable;
 
+    private String esServerLogNotes = "true";
+
     public Boolean getInitDataBaseEnable() {
         if(null == initDataBaseEnable){
             return false;
@@ -46,6 +48,14 @@ public class AirBaseProperties {
             return true;
         }
         return Boolean.valueOf(apiLogEnable);
+    }
+
+    public Boolean getEsServerLogNotes() {
+        return Boolean.valueOf(esServerLogNotes);
+    }
+
+    public void setEsServerLogNotes(String esServerLogNotes) {
+        this.esServerLogNotes = esServerLogNotes;
     }
 
     public void setDescription(String description) {

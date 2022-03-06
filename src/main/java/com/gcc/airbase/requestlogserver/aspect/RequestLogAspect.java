@@ -2,6 +2,7 @@ package com.gcc.airbase.requestlogserver.aspect;
 
 import com.gcc.airbase.requestlogserver.annotation.RequestRecord;
 import com.gcc.airbase.requestlogserver.model.EagleLogEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,10 +14,8 @@ import java.lang.reflect.Method;
 
 @Component
 @Aspect
+@Slf4j(topic = "EagleEye-Listener")
 public class RequestLogAspect {
-
-    @Autowired
-    LogProxy logProxy;
 
     @Autowired
     HttpServletRequest request;
@@ -32,7 +31,7 @@ public class RequestLogAspect {
         Object proceed = point.proceed();
         long endTime = System.currentTimeMillis();
         eagle.calculateTimeSpan(requestRecord.timeSpan(),startTime,endTime);
-        logProxy.synclog(eagle.getLogInfo(requestRecord.item(),requestRecord.timeSpan()));
+        log.info(eagle.getLogInfo(requestRecord.item(),requestRecord.timeSpan()));
         return proceed;
     }
 

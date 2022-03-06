@@ -1,11 +1,9 @@
 package com.gcc.airbase.requestlogserver.model;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.math.MathUtil;
 import com.gcc.airbase.requestlogserver.enums.ItemType;
 import lombok.Data;
 import org.springframework.util.StreamUtils;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -43,7 +41,7 @@ public class EagleLogEntity implements Serializable {
       this.host = getHost(request);
       this.uri = request.getRequestURI();
       this.method = request.getMethod();
-      this.param = getParam();
+      this.param = getParams(request);
     }
 
 
@@ -121,8 +119,8 @@ public class EagleLogEntity implements Serializable {
         if(flag) {
             long a = endTime -startTime;
             Double b = Double.parseDouble(""+a);
-            Double span = b/1000;//DateUtil.between(DateUtil.date(startTime),DateUtil.date(endTime), DateUnit.SECOND);
-            this.spanStr = "0"+new DecimalFormat("#,##0.000").format(span) +"s";
+            Double span = b/1000;
+            this.spanStr = new DecimalFormat("#,##0.000").format(span) +"s";
         }
     }
 

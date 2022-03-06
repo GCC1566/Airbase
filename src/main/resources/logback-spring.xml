@@ -36,4 +36,8 @@
         <appender-ref ref="LISTENER"/>
     </logger>
 
+    <logger name="ElasticSearch Execute Notes" additivity="false" level="info">
+        <appender-ref ref="LISTENER"/>
+    </logger>
+
 </configuration>

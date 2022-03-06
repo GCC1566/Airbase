@@ -5,8 +5,10 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import com.gcc.airbase.esserver.dto.ESearchParamDto;
 import com.gcc.airbase.esserver.dto.SearchRetDto;
+import com.gcc.airbase.esserver.log.annotation.ExecuteLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.action.admin.indices.alias.get.GetAliasesRequest;
@@ -30,9 +32,9 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.nlpcn.es4sql.SearchDao;
 import org.nlpcn.es4sql.query.QueryAction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-
 import java.util.*;
 
 @ConditionalOnProperty(name="airbase.esserver-enable", havingValue="true")
@@ -40,11 +42,9 @@ import java.util.*;
 @Slf4j
 public class ElasticSearchActuatorService implements ElasticSearchActuator{
 
+    @Qualifier("EsHighLevelClient")
     @Autowired
     RestHighLevelClient restHighLevelClient;
-
-    @Autowired
-    RestClient restClient;
 
     @Autowired
     TransportClient transportClient;
@@ -208,6 +208,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
     }
 
     @Override
+    @ExecuteLog
     public JSONObject seachEsData(String indexName, SearchSourceBuilder searchSourceBuilder) {
         JSONObject resultMap = new JSONObject();
         JSONArray result = new JSONArray();
@@ -215,7 +216,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
         searchRequest.source(searchSourceBuilder);
         try {
             SearchResponse searchResp = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-            return JSONObject.parseObject(searchResp.toString());
+            return JSONObject.parseObject(searchResp.toString(), Feature.OrderedField);
         } catch (Exception e) {
             log.error("es查询错误，"+e+"\n dslStr:{}",searchSourceBuilder);
         }
@@ -223,6 +224,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
     }
 
     @Override
+    @ExecuteLog
     public SearchRetDto seachEsData(ESearchParamDto searchParam) {
         SearchRequest searchRequest = getSearchRequest(searchParam.getIndexName());
         searchRequest.source(searchParam.getSearchSource());
@@ -236,6 +238,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
     }
 
     @Override
+    @ExecuteLog
     public JSONObject aggsEsData(String indexName, SearchSourceBuilder searchSourceBuilder) {
         JSONObject result = new JSONObject();
         SearchRequest searchRequest = getSearchRequest(indexName);
@@ -252,6 +255,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
     }
 
     @Override
+    @ExecuteLog
     public SearchRetDto aggsEsData(ESearchParamDto searchParam) {
         SearchRequest searchRequest = getSearchRequest(searchParam.getIndexName());
         searchRequest.source(searchParam.getSearchSource());
@@ -267,6 +271,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
     }
 
     @Override
+    @ExecuteLog
     public JSONObject ExeuceSearchDsl(String indexName, String dslBodyStr) {
         Request req = getRestRequest(indexName, dslBodyStr);
         JSONObject retJson = null;
@@ -320,7 +325,7 @@ public class ElasticSearchActuatorService implements ElasticSearchActuator{
      */
     private JSONObject search(Request request) throws Exception {
         JSONObject retJson = null;
-        Response resp = restClient.performRequest(request);
+        Response resp = restHighLevelClient.getLowLevelClient().performRequest(request);
         if (resp.getStatusLine().getStatusCode() == 200) {
             retJson = JSONObject.parseObject(EntityUtils.toString(resp.getEntity()));
         }
